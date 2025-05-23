@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel
+from pydantic import BaseModel, constr
 import os
 from dotenv import load_dotenv
 from google.generativeai import configure
@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory="templates")
 
 # Pydantic model for request body
 class Query(BaseModel):
-    query: str
+    query: constr(min_length=1)  # Ensures query is not empty
 
 # Web Interface
 @app.get("/", response_class=HTMLResponse)
