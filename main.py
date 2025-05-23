@@ -52,3 +52,8 @@ async def query_endpoint(query: Query):
         return {"response": response}
     except Exception as e:
         return {"error": f"Internal server error: {str(e)}"}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
