@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request , Response
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -28,7 +28,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://tutor-agent-system.vercel.app/",  # Replace with your Vercel URL
+        "https://tutor-agent-system.vercel.app",  # Replace with your Vercel URL
         "http://localhost:3000",  # For local development
     ],
     allow_credentials=True,
@@ -46,7 +46,7 @@ async def add_security_headers(request: Request, call_next):
     return response
 
 app.mount("/static", StaticFiles(directory="public/static"), name="static")
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="public")
 
 # Pydantic model for request body
 class Query(BaseModel):
@@ -98,6 +98,10 @@ async def health_check():
         dict: Status of the API.
     """
     return {"status": "healthy"}
+
+@app.get("/favicon.ico")
+async def favicon():
+    return Response(status_code=204)
 
 if __name__ == "__main__":
     import uvicorn
