@@ -17,7 +17,7 @@ form.addEventListener('submit', async (e) => {
     const queryInput = document.getElementById('query-input').value;
 
     try {
-        const response = await fetch('/api/query', {
+        const response = await fetch('https://tutor-agent-system.onrender.com/api/query', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

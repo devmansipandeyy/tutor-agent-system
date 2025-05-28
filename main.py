@@ -45,7 +45,7 @@ async def add_security_headers(request: Request, call_next):
     response.headers["Content-Security-Policy"] = "default-src 'self'"
     return response
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="public/static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # Pydantic model for request body
